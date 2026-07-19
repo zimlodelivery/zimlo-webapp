@@ -288,8 +288,7 @@ export default function Home() {
 /* ========================================================================= */
 
 function BrandHeader({ brandName }) {
-  return (
-    <img src="/logo.png" alt="Zimlo" className="w-14 h-14 rounded-full object-cover shadow-lg" />
+  <img src="/logo.png" alt="Zimlo" className="w-14 h-14 rounded-full object-cover shadow-lg" />
 }
 
 function HomeScreen({ brandName, contactPhone, openFood, openCustom, showToast }) {
