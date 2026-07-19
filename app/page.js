@@ -289,15 +289,7 @@ export default function Home() {
 
 function BrandHeader({ brandName }) {
   return (
-    <div className="flex items-center justify-center gap-2 pt-5 pb-1">
-      <div
-        className="w-9 h-9 rounded-full flex items-center justify-center font-display font-extrabold text-charcoal text-sm"
-        style={{ background: "conic-gradient(from 200deg, #FF7A1A, #FFC93C, #FF7A1A)" }}
-      >
-        Z
-      </div>
-      <div className="font-display font-extrabold text-2xl tracking-wide text-charcoal">{brandName || "Zimlo"}</div>
-    </div>
+    <img src="/logo.png" alt="Zimlo" className="w-9 h-9 rounded-full object-cover" />
   );
 }
 
