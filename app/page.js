@@ -337,12 +337,7 @@ function HomeScreen({ brandName, contactPhone, openFood, openCustom, showToast }
 
 function BackHeader({ title, onBack }) {
   return (
-    <div className="flex items-center gap-3 px-[18px] pt-4 pb-1">
-      <button onClick={onBack} className="w-9 h-9 rounded-full bg-white shadow flex items-center justify-center text-base">
-        ←
-      </button>
-      <div className="font-display font-bold text-[19px]">{title}</div>
-    </div>
+    <img src="/logo.png" alt="Zimlo" className="w-14 h-14 rounded-full object-cover shadow-lg" />
   );
 }
 
