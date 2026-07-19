@@ -4,7 +4,7 @@
 //  since Phase 1 doesn't need shop owners logging in to manage them yet.)
 
 generator client {
-  provider = "postgresql"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -12,7 +12,7 @@ datasource db {
   // For production hosting, change this to "postgresql" and set
   // DATABASE_URL to a free Neon/Supabase connection string.
   // See README.md → "Going live" for the exact steps.
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
