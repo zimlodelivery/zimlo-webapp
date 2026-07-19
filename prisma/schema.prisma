@@ -4,7 +4,7 @@
 //  since Phase 1 doesn't need shop owners logging in to manage them yet.)
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "postgresql"
 }
 
 datasource db {
