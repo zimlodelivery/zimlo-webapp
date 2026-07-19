@@ -1,0 +1,69 @@
+// Jimlo database schema — Phase 1 MVP slice.
+// (This is the practical subset of the full schema in jimlo-phase1-design.md.
+//  Shops are kept as a static editable file — lib/shops.js — not a table,
+//  since Phase 1 doesn't need shop owners logging in to manage them yet.)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // For local development, "sqlite" works with zero setup.
+  // For production hosting, change this to "postgresql" and set
+  // DATABASE_URL to a free Neon/Supabase connection string.
+  // See README.md → "Going live" for the exact steps.
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id               Int      @id @default(autoincrement())
+
+  // What was requested
+  category         String   // food | custom
+  shopName         String?  // kept for reference, unused in new flow
+  requestText      String   // free-text description, or auto-generated cart summary
+  extraData        String?  // JSON string: cart items for food orders
+
+  // Who asked
+  customerName     String
+  customerPhone    String
+  address          String?
+
+  // Admin-controlled fields
+  status           String   @default("REQUESTED")
+  // REQUESTED | CONFIRMED | REJECTED | ASSIGNED | OUT_FOR_DELIVERY | DELIVERED | CANCELLED
+  itemPrice        Float?
+  deliveryCharge   Float?   @default(0)
+  totalPrice       Float?
+  rejectionReason  String?
+  deliveryPartner  String?
+  paymentMethod    String?  @default("upi")
+  paymentClaimed   Boolean  @default(false)  // customer tapped "I have paid"
+  paymentReceived  Boolean  @default(false)  // admin verified the money actually arrived
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([customerPhone])
+  @@index([status])
+}
+
+model MenuItem {
+  id          Int      @id @default(autoincrement())
+  category    String   // nashta | bhojan | nonveg
+  name        String
+  price       Float
+  unit        String   @default("plate") // plate | piece
+  isAvailable Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Settings {
+  id           Int    @id @default(1)
+  upiId        String @default("rohitmeena0555@ybl")
+  brandName    String @default("Zimlo")
+  contactPhone String @default("")   // shown to customers, e.g. for WhatsApp/call — edit anytime from Admin
+}
